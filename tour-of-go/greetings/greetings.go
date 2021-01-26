@@ -20,8 +20,25 @@ func Hello(name string) (string, error) {
 	return message, nil
 }
 
-// init sets initial values for variables used in function
+// Hellos returns a map that associates each of the named ppl
+// with a greeting msg.
+func Hellos(names []string) (map[string]string, error) {
+	// A map to associate names with msgs.
+	messages := make(map[string]string)
+	// Loop through received slice of names, calling
+	// the Hello function to get a msg for each name.
+	for _, name := range names {
+		message, err := Hello(name)
+		if err != nil {
+			return nil, err
+		}
+		// In the map, associate the retrieved msg with name
+		messages[name] = message
+	}
+	return messages, nil
+}
 
+// init sets initial values for variables used in function
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }
